@@ -52,6 +52,18 @@ public class RecepcionProductoController {
         return ResponseEntity.status(201).body(nuevoRecepcionProducto);
     }
 
+    @PutMapping("/api/v1/recepcion/{id}")
+    public ResponseEntity<?> updateRecepcion(@PathVariable Integer id, @RequestBody RecepcionProducto recepcionActualizada) {
+        RecepcionProducto actualizada = recepcionProductoService.update(id, recepcionActualizada);
+
+        if (actualizada == null) {
+            return ResponseEntity.status(404).body("Recepción no encontrada");
+        }
+
+        return ResponseEntity.status(200).body(actualizada);
+    }
+
+
 
 
 }

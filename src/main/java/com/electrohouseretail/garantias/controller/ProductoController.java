@@ -71,4 +71,13 @@ public class ProductoController {
 
     }
 
+    @PutMapping("/api/v1/producto/{id}")
+    public ResponseEntity<?> updateProducto(@PathVariable Integer id, @RequestBody Producto producto) {
+        Producto actualizado = productoService.update(id, producto);
+        if (actualizado == null) {
+            return ResponseEntity.status(404).body("Producto no encontrado");
+        }
+        return ResponseEntity.ok(actualizado);
+    }
+
 }

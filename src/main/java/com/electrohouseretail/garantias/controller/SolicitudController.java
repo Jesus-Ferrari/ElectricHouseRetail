@@ -67,5 +67,17 @@ public class SolicitudController {
         return ResponseEntity.status(200).body(solicitud);
     }
 
+    @PutMapping("/api/v1/solicitud/{id}")
+    public ResponseEntity<?> updateSolicitud(@PathVariable Integer id, @RequestBody Solicitud solicitudActualizada) {
+        Solicitud solicitud = solicitudService.update(id, solicitudActualizada);
+
+        if (solicitud == null) {
+            return ResponseEntity.status(404).body("Solicitud no encontrada");
+        }
+
+        return ResponseEntity.status(200).body(solicitud);
+    }
+
+
 
 }

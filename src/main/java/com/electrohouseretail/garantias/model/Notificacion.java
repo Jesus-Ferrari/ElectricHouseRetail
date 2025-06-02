@@ -26,12 +26,10 @@ public class Notificacion {
     private String mensaje;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
-    @ManyToOne
     @JoinColumn(name = "solicitud_id", nullable = false)
     private Solicitud solicitud;
+
+
 
 
 }

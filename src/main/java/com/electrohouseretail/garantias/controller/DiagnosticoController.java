@@ -52,5 +52,17 @@ public class DiagnosticoController {
         return ResponseEntity.status(201).body(nuevoDiagnostico);
     }
 
+    @PutMapping("/api/v1/diagnostico/{id}")
+    public ResponseEntity<?> updateDiagnostico(@PathVariable Integer id, @RequestBody Diagnostico diagnosticoActualizado) {
+        Diagnostico actualizado = diagnosticoService.update(id, diagnosticoActualizado);
+
+        if (actualizado == null) {
+            return ResponseEntity.status(404).body("Diagnóstico no encontrado");
+        }
+
+        return ResponseEntity.status(200).body(actualizado);
+    }
+
+
 }
 

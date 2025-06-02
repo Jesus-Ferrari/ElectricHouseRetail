@@ -52,4 +52,16 @@ public class BoletaController {
         return ResponseEntity.status(201).body(nuevaBoleta);
     }
 
+    @PutMapping("/api/v1/boleta/{id}")
+    public ResponseEntity<?> updateBoleta(@PathVariable Integer id, @RequestBody Boleta boletaActualizada) {
+        Boleta actualizada = boletaService.update(id, boletaActualizada);
+
+        if (actualizada == null) {
+            return ResponseEntity.status(404).body("Boleta no encontrada");
+        }
+
+        return ResponseEntity.status(200).body(actualizada);
+    }
+
+
 }

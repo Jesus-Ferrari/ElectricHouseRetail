@@ -31,4 +31,18 @@ public class DiagnosticoService {
         return diagnosticoRepository.save(diagnostico);
     }
 
+    public Diagnostico update(Integer id, Diagnostico diagnosticoActualizado) {
+        Diagnostico existente = diagnosticoRepository.findById(id).orElse(null);
+        if (existente == null) {
+            return null;
+        }
+
+        existente.setTipoDiagnostico(diagnosticoActualizado.getTipoDiagnostico());
+        existente.setDescripcion(diagnosticoActualizado.getDescripcion());
+        existente.setResponsable(diagnosticoActualizado.getResponsable());
+        existente.setFechaDiagnostico(diagnosticoActualizado.getFechaDiagnostico());
+
+        return diagnosticoRepository.save(existente);
+    }
+
 }

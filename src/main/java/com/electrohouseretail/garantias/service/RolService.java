@@ -31,4 +31,12 @@ public class RolService {
         return rolRepository.save(rol);
     }
 
+    public Rol update(Integer id, Rol rolActualizado) {
+        Rol existente = rolRepository.findById(id).orElse(null);
+        if (existente == null) return null;
+
+        existente.setTipoRol(rolActualizado.getTipoRol());
+        return rolRepository.save(existente);
+    }
+
 }

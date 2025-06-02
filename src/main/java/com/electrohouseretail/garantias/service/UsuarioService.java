@@ -31,8 +31,34 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    public List<Usuario> findByRolId(Integer id) {
+        return usuarioRepository.findByRolId(id);
+    }
+
     public Usuario login(String username, String password) {
         return usuarioRepository.findByUsernameAndPassword(username, password).orElse(null);
     }
+
+    public Usuario update(Integer id, Usuario usuarioActualizado) {
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+
+        if (usuario == null) {
+            return null;
+        }
+
+        usuario.setUsername(usuarioActualizado.getUsername());
+        usuario.setPassword(usuarioActualizado.getPassword());
+        usuario.setNombre(usuarioActualizado.getNombre());
+        usuario.setApellidoPaterno(usuarioActualizado.getApellidoPaterno());
+        usuario.setApellidoMaterno(usuarioActualizado.getApellidoMaterno());
+        usuario.setCorreo(usuarioActualizado.getCorreo());
+        //usuario.setRut(usuarioActualizado.getRut());
+        usuario.setTelefono(usuarioActualizado.getTelefono());
+        usuario.setDireccion(usuarioActualizado.getDireccion());
+        usuario.setRol(usuarioActualizado.getRol());
+
+        return usuarioRepository.save(usuario);
+    }
+
 
 }

@@ -1,6 +1,9 @@
 package com.electrohouseretail.garantias.service;
 
+import com.electrohouseretail.garantias.model.Notificacion;
 import com.electrohouseretail.garantias.model.Solicitud;
+import com.electrohouseretail.garantias.model.Usuario;
+import com.electrohouseretail.garantias.repository.NotificacionRepository;
 import com.electrohouseretail.garantias.repository.SolicitudRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,10 @@ public class SolicitudService {
 
     @Autowired
     private SolicitudRepository solicitudRepository;
+
+    @Autowired
+    private NotificacionRepository notificacionRepository;
+
     public List<Solicitud> findAll() {
         return solicitudRepository.findAll();
     }
@@ -24,6 +31,8 @@ public class SolicitudService {
     }
 
     public void delete(Integer id) {
+        List<Notificacion> notificaciones = notificacionRepository.findBySolicitudId(id);
+        notificacionRepository.deleteAll(notificaciones);
         solicitudRepository.deleteById(id);
     }
 
@@ -43,6 +52,24 @@ public class SolicitudService {
         }
         return null;
     }
+
+    public Solicitud update(Integer id, Solicitud solicitudActualizada) {
+        Solicitud solicitudExistente = solicitudRepository.findById(id).orElse(null);
+        if (solicitudExistente == null) {
+            return null;
+        }
+
+        solicitudExistente.setTipoSolicitud(solicitudActualizada.getTipoSolicitud());
+        solicitudExistente.setDescripcion(solicitudActualizada.getDescripcion());
+        //solicitudExistente.setFechaSolicitud(solicitudActualizada.getFechaSolicitud());
+        solicitudExistente.setEstadoSolicitud(solicitudActualizada.getEstadoSolicitud());
+        //solicitudExistente.setRutaBoleta(solicitudActualizada.getRutaBoleta());
+        //solicitudExistente.setRutaDeclaracion(solicitudActualizada.getRutaDeclaracion());
+        //solicitudExistente.setUsuario(solicitudActualizada.getUsuario());
+
+        return solicitudRepository.save(solicitudExistente);
+    }
+
 
 
 

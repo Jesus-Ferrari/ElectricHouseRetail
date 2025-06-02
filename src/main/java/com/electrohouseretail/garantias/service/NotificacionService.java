@@ -32,14 +32,26 @@ public class NotificacionService {
         return notificacionRepository.save(notificacion);
     }
 
-    public List<Notificacion> findByUsuarioId(Integer id) {
-        return notificacionRepository.findByUsuarioId(id);
-    }
-
     public List<Notificacion> findBySolicitudId(Integer id) {
         return notificacionRepository.findBySolicitudId(id);
     }
 
+    public Notificacion update(Integer id, Notificacion notificacionActualizada) {
+        Notificacion existente = notificacionRepository.findById(id).orElse(null);
+        if (existente == null) {
+            return null;
+        }
+
+        //existente.setFechaNotificacion(notificacionActualizada.getFechaNotificacion());
+        existente.setMensaje(notificacionActualizada.getMensaje());
+        //existente.setSolicitud(notificacionActualizada.getSolicitud());
+
+        return notificacionRepository.save(existente);
+    }
+
+    public List<Notificacion> findByUsuarioId(Integer idUsuario) {
+        return notificacionRepository.findBySolicitudUsuarioId(idUsuario);
+    }
 
 
 }

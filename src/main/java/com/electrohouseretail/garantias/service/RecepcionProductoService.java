@@ -31,4 +31,19 @@ public class RecepcionProductoService {
         return recepcionProductoRepository.save(recepcionProducto);
     }
 
+    public RecepcionProducto update(Integer id, RecepcionProducto recepcionActualizada) {
+        RecepcionProducto existente = recepcionProductoRepository.findById(id).orElse(null);
+        if (existente == null) {
+            return null;
+        }
+
+        existente.setFechaRecepcion(recepcionActualizada.getFechaRecepcion());
+        existente.setEstadoRecepcion(recepcionActualizada.getEstadoRecepcion());
+        existente.setResponsable(recepcionActualizada.getResponsable());
+        //existente.setSolicitud(recepcionActualizada.getSolicitud());
+
+        return recepcionProductoRepository.save(existente);
+    }
+
+
 }

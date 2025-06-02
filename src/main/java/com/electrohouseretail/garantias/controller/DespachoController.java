@@ -52,5 +52,17 @@ public class DespachoController {
         return ResponseEntity.status(201).body(nuevoDespacho);
     }
 
+    @PutMapping("/api/v1/despacho/{id}")
+    public ResponseEntity<?> updateDespacho(@PathVariable Integer id, @RequestBody Despacho despachoActualizado) {
+        Despacho actualizado = despachoService.update(id, despachoActualizado);
+
+        if (actualizado == null) {
+            return ResponseEntity.status(404).body("Despacho no encontrado");
+        }
+
+        return ResponseEntity.status(200).body(actualizado);
+    }
+
+
 
 }

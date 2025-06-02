@@ -42,4 +42,16 @@ public class NotaCreditoController {
         return ResponseEntity.status(201).body(nuevoNotaCredito);
     }
 
+    @PutMapping("/api/v1/notaCredito/{id}")
+    public ResponseEntity<?> updateNotaCredito(@PathVariable Integer id, @RequestBody NotaCredito notaActualizada) {
+        NotaCredito actualizada = notaCreditoService.update(id, notaActualizada);
+
+        if (actualizada == null) {
+            return ResponseEntity.status(404).body("Nota de crédito no encontrada");
+        }
+
+        return ResponseEntity.status(200).body(actualizada);
+    }
+
+
 }

@@ -31,4 +31,18 @@ public class OrdenRetiroService {
         return ordenRetiroRepository.save(ordenRetiro);
     }
 
+    public OrdenRetiro update(Integer id, OrdenRetiro ordenActualizada) {
+        OrdenRetiro existente = ordenRetiroRepository.findById(id).orElse(null);
+        if (existente == null) {
+            return null;
+        }
+
+        existente.setFechaRetiro(ordenActualizada.getFechaRetiro());
+        existente.setFechaLlegada(ordenActualizada.getFechaLlegada());
+        existente.setEstadoRetiro(ordenActualizada.getEstadoRetiro());
+
+        return ordenRetiroRepository.save(existente);
+    }
+
+
 }

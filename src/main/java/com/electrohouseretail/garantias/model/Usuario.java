@@ -45,4 +45,10 @@ public class Usuario {
     @Column(nullable = false, length = 50, unique = false)
     private String direccion;
 
+    @ManyToOne
+    @JoinColumn(name = "rol", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Rol rol;
+
+
 }

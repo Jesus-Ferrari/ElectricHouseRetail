@@ -31,4 +31,19 @@ public class BoletaService {
         return boletaRepository.save(boleta);
     }
 
+    public Boleta update(Integer id, Boleta boletaActualizada) {
+        Boleta existente = boletaRepository.findById(id).orElse(null);
+        if (existente == null) {
+            return null;
+        }
+
+        //existente.setNumeroBoleta(boletaActualizada.getNumeroBoleta());
+        existente.setFechaBoleta(boletaActualizada.getFechaBoleta());
+        //existente.setIva(boletaActualizada.getIva());
+        existente.setTotal(boletaActualizada.getTotal());
+
+        return boletaRepository.save(existente);
+    }
+
+
 }

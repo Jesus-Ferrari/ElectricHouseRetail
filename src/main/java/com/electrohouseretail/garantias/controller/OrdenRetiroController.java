@@ -52,5 +52,17 @@ public class OrdenRetiroController {
         return ResponseEntity.status(201).body(nuevoOrdenRetiro);
     }
 
+    @PutMapping("/api/v1/ordenRetiro/{id}")
+    public ResponseEntity<?> updateOrdenRetiro(@PathVariable Integer id, @RequestBody OrdenRetiro ordenActualizada) {
+        OrdenRetiro actualizada = ordenRetiroService.update(id, ordenActualizada);
+
+        if (actualizada == null) {
+            return ResponseEntity.status(404).body("Orden de retiro no encontrada");
+        }
+
+        return ResponseEntity.status(200).body(actualizada);
+    }
+
+
 }
 

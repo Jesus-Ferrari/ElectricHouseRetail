@@ -31,5 +31,23 @@ public class DespachoService {
         return despachoRepository.save(despacho);
     }
 
+    public Despacho update(Integer id, Despacho despachoActualizado) {
+        Despacho existente = despachoRepository.findById(id).orElse(null);
+        if (existente == null) {
+            return null;
+        }
+
+        existente.setEstadoDespacho(despachoActualizado.getEstadoDespacho());
+        existente.setDireccionDespacho(despachoActualizado.getDireccionDespacho());
+        existente.setResponsableDespacho(despachoActualizado.getResponsableDespacho());
+        existente.setFechaSalida(despachoActualizado.getFechaSalida());
+        existente.setFechaEntrega(despachoActualizado.getFechaEntrega());
+        existente.setQuienRecibe(despachoActualizado.getQuienRecibe());
+        //existente.setSolicitud(despachoActualizado.getSolicitud());
+
+        return despachoRepository.save(existente);
+    }
+
+
 
 }

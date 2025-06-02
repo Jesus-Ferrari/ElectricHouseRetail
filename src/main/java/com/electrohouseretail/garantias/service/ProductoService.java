@@ -31,4 +31,17 @@ public class ProductoService {
         return productoRepository.save(producto);
     }
 
+    public Producto update(Integer id, Producto productoActualizado) {
+        Producto existente = productoRepository.findById(id).orElse(null);
+        if (existente == null) return null;
+
+        existente.setSku(productoActualizado.getSku());
+        existente.setNombreProducto(productoActualizado.getNombreProducto());
+        existente.setCategoria(productoActualizado.getCategoria());
+        existente.setStock(productoActualizado.getStock());
+        existente.setMonto(productoActualizado.getMonto());
+
+        return productoRepository.save(existente);
+    }
+
 }

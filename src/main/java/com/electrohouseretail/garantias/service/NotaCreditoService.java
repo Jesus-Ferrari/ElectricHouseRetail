@@ -27,4 +27,23 @@ public class NotaCreditoService {
         return notaCreditoRepository.save(notaCredito);
     }
 
+    public NotaCredito update(Integer id, NotaCredito notaActualizada) {
+        NotaCredito existente = notaCreditoRepository.findById(id).orElse(null);
+        if (existente == null) {
+            return null;
+        }
+
+        //existente.setNumeroNC(notaActualizada.getNumeroNC());
+        //existente.setTipoNC(notaActualizada.getTipoNC());
+        //existente.setFolioSII(notaActualizada.getFolioSII());
+        //existente.setNumeroTransBanc(notaActualizada.getNumeroTransBanc());
+        //existente.setFechaEmision(notaActualizada.getFechaEmision());
+        //existente.setMonto(notaActualizada.getMonto());
+        //existente.setMetodoDevolucion(notaActualizada.getMetodoDevolucion());
+        existente.setEstadoNC(notaActualizada.getEstadoNC());
+
+        return notaCreditoRepository.save(existente);
+    }
+
+
 }

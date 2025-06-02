@@ -53,17 +53,33 @@ public class NotificacionController {
         return ResponseEntity.status(201).body(nuevoNotificacion);
     }
 
-    @GetMapping("/api/v1/notificacion/usuario/{idUsuario}")
-    public ResponseEntity<?> getNotificacionesPorUsuario(@PathVariable Integer idUsuario) {
-        List<Notificacion> notificaciones = notificacionService.findByUsuarioId(idUsuario);
-        return ResponseEntity.status(200).body(notificaciones);
-    }
 
     @GetMapping("/api/v1/notificacion/solicitud/{idSolicitud}")
     public ResponseEntity<?> getNotificacionesPorSolicitud(@PathVariable Integer idSolicitud) {
         List<Notificacion> notificaciones = notificacionService.findBySolicitudId(idSolicitud);
         return ResponseEntity.status(200).body(notificaciones);
     }
+
+    @PutMapping("/api/v1/notificacion/{id}")
+    public ResponseEntity<?> updateNotificacion(@PathVariable Integer id, @RequestBody Notificacion notificacionActualizada) {
+        Notificacion actualizada = notificacionService.update(id, notificacionActualizada);
+
+        if (actualizada == null) {
+            return ResponseEntity.status(404).body("Notificación no encontrada");
+        }
+
+        return ResponseEntity.status(200).body(actualizada);
+    }
+
+    @GetMapping("/api/v1/notificacion/usuario/{id}")
+    public ResponseEntity<?> getByUsuarioId(@PathVariable Integer id) {
+        List<Notificacion> notificaciones = notificacionService.findByUsuarioId(id);
+        if (notificaciones.isEmpty()) {
+            return ResponseEntity.status(404).body("No hay notificaciones para este usuario.");
+        }
+        return ResponseEntity.ok(notificaciones);
+    }
+
 
 
 }
